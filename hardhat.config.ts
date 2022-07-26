@@ -30,6 +30,11 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY!, process.env.PRIVATE_KEY_2!],
       chainId: 4,
     },
+    muambai: {
+      url: process.env.MUAMBAI_URL || "",
+      accounts: [process.env.PRIVATE_KEY!, process.env.PRIVATE_KEY_2!],
+      chainId: 80001,
+    },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
