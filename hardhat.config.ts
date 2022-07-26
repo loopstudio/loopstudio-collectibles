@@ -6,7 +6,6 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
-import "hardhat-gas-reporter";
 import "hardhat-deploy";
 
 dotenv.config();
@@ -39,9 +38,9 @@ const config: HardhatUserConfig = {
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
     currency: "USD",
-    outputFile: "gas-report.txt",
+    // outputFile: "gas-report.txt",
     coinmarketcap: process.env.COINMARKETCAP_API_KEY!,
-    token: "MATIC",
+    token: "ETH",
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
