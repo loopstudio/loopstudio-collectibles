@@ -5,21 +5,21 @@ import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage {
+contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
   // VRF variables
   VRFCoordinatorV2Interface COORDINATOR;
 
-  uint64 subscriptionId;
-  address vrfCoordinator;
-  bytes32 keyHash;
-  uint32 private constant callbackGasLimit = 300000;
+  uint64 private immutable subscriptionId;
+  address private immutable vrfCoordinator;
+  bytes32 private immutable keyHash;
+  uint32 private constant callbackGasLimit = 20000 * (numWords + 10);
   uint16 private constant requestConfirmations = 3;
-  uint32 private constant numWords = 5;
+  uint32 private constant numWords = 50;
 
   uint256[] public randomWords;
   uint256 public requestId;
-  address owner;
 
   // NFT variables
   uint256 public tokenCounter = 0;
@@ -29,10 +29,11 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage {
     uint64 _subscriptionId,
     address _vrfCoordinator,
     bytes32 _keyHask,
-    string[5] memory _characterUris
+    string[50] memory _characterUris
   ) VRFConsumerBaseV2(_vrfCoordinator) ERC721("LoopNFT", "LOOPNFT") {
+    require(_characterUris.length == numWords, "Randoms and URI arrays have different length");
+
     COORDINATOR = VRFCoordinatorV2Interface(_vrfCoordinator);
-    owner = msg.sender;
     subscriptionId = _subscriptionId;
     keyHash = _keyHask;
     vrfCoordinator = _vrfCoordinator;
@@ -55,11 +56,6 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage {
     uint256[] memory _randomWords
   ) internal override {
     randomWords = _randomWords;
-  }
-
-  modifier onlyOwner() {
-    require(msg.sender == owner);
-    _;
   }
 
   function mint() public returns (uint256) {

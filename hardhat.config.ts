@@ -32,7 +32,7 @@ const config: HardhatUserConfig = {
     },
     rinkeby: {
       url: process.env.RINKEBY_URL || "",
-      accounts: [process.env.PRIVATE_KEY!, process.env.PRIVATE_KEY_2!],
+      accounts: [process.env.PRIVATE_KEY!],
       chainId: 4,
     },
   },
