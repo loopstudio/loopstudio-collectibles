@@ -8,6 +8,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
+  bool vrfInitialized = false;
+
   // VRF variables
   VRFCoordinatorV2Interface COORDINATOR;
 
@@ -41,7 +43,14 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     characterUris = _characterUris;
   }
 
-  function requestRandomWords() external onlyOwner {
+  function initializeRandoms() external onlyOwner {
+    require(!vrfInitialized, "Randoms already initialized");
+
+    requestRandomWords();
+    vrfInitialized = true;
+  }
+
+  function requestRandomWords() private {
     requestId = COORDINATOR.requestRandomWords(
       keyHash,
       subscriptionId,

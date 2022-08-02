@@ -1,7 +1,7 @@
 /* eslint-disable node/no-unpublished-import */
 import { task } from "hardhat/config";
 
-task("requestRandoms", "Request new randoms for LoopNFT")
+task("initializeRandoms", "Request new randoms for LoopNFT")
   .addParam("ca", "The contract's address")
   .setAction(async (taskArgs, hre) => {
     const contractToDeploy = "LoopNFT";
@@ -11,9 +11,9 @@ task("requestRandoms", "Request new randoms for LoopNFT")
     );
     const loopNFT = loopNFTContract.attach(taskArgs.ca);
 
-    const requestRandomWords = await loopNFT.requestRandomWords();
+    const initializeRandoms = await loopNFT.initializeRandoms();
 
-    if (requestRandomWords) {
+    if (initializeRandoms) {
       console.log("Transaction completed");
     }
   });

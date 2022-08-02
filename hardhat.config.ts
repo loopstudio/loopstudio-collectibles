@@ -11,8 +11,8 @@ import "hardhat-deploy";
 
 import "./tasks/mintLoopNFT";
 import "./tasks/getRandomValues";
-import "./tasks/requestRandoms";
 import "./tasks/getTokenCounter";
+import "./tasks/initializeRandoms";
 
 dotenv.config();
 

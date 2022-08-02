@@ -32,6 +32,7 @@ export interface LoopNFTInterface extends utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
+    "initializeRandoms()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "mint()": FunctionFragment;
     "name()": FunctionFragment;
@@ -41,7 +42,6 @@ export interface LoopNFTInterface extends utils.Interface {
     "rawFulfillRandomWords(uint256,uint256[])": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "requestId()": FunctionFragment;
-    "requestRandomWords()": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
@@ -58,6 +58,7 @@ export interface LoopNFTInterface extends utils.Interface {
       | "approve"
       | "balanceOf"
       | "getApproved"
+      | "initializeRandoms"
       | "isApprovedForAll"
       | "mint"
       | "name"
@@ -67,7 +68,6 @@ export interface LoopNFTInterface extends utils.Interface {
       | "rawFulfillRandomWords"
       | "renounceOwnership"
       | "requestId"
-      | "requestRandomWords"
       | "safeTransferFrom(address,address,uint256)"
       | "safeTransferFrom(address,address,uint256,bytes)"
       | "setApprovalForAll"
@@ -90,6 +90,10 @@ export interface LoopNFTInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getApproved",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "initializeRandoms",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
@@ -115,10 +119,6 @@ export interface LoopNFTInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "requestId", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "requestRandomWords",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "safeTransferFrom(address,address,uint256)",
     values: [
@@ -173,6 +173,10 @@ export interface LoopNFTInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "initializeRandoms",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
@@ -193,10 +197,6 @@ export interface LoopNFTInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "requestId", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "requestRandomWords",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom(address,address,uint256)",
     data: BytesLike
@@ -332,6 +332,10 @@ export interface LoopNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    initializeRandoms(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -367,10 +371,6 @@ export interface LoopNFT extends BaseContract {
     ): Promise<ContractTransaction>;
 
     requestId(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    requestRandomWords(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: PromiseOrValue<string>,
@@ -436,6 +436,10 @@ export interface LoopNFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  initializeRandoms(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   isApprovedForAll(
     owner: PromiseOrValue<string>,
     operator: PromiseOrValue<string>,
@@ -471,10 +475,6 @@ export interface LoopNFT extends BaseContract {
   ): Promise<ContractTransaction>;
 
   requestId(overrides?: CallOverrides): Promise<BigNumber>;
-
-  requestRandomWords(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   "safeTransferFrom(address,address,uint256)"(
     from: PromiseOrValue<string>,
@@ -540,6 +540,8 @@ export interface LoopNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    initializeRandoms(overrides?: CallOverrides): Promise<void>;
+
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -571,8 +573,6 @@ export interface LoopNFT extends BaseContract {
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     requestId(overrides?: CallOverrides): Promise<BigNumber>;
-
-    requestRandomWords(overrides?: CallOverrides): Promise<void>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: PromiseOrValue<string>,
@@ -683,6 +683,10 @@ export interface LoopNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    initializeRandoms(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -718,10 +722,6 @@ export interface LoopNFT extends BaseContract {
     ): Promise<BigNumber>;
 
     requestId(overrides?: CallOverrides): Promise<BigNumber>;
-
-    requestRandomWords(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: PromiseOrValue<string>,
@@ -788,6 +788,10 @@ export interface LoopNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    initializeRandoms(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     isApprovedForAll(
       owner: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
@@ -823,10 +827,6 @@ export interface LoopNFT extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     requestId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    requestRandomWords(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: PromiseOrValue<string>,
