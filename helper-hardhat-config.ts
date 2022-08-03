@@ -14,6 +14,6 @@ export const networkConfig: { [key: number]: Record<string, unknown> } = {
   },
 };
 
-export const developmentChains = ["hardhat", "localhost", "rinkeby"];
+export const developmentChains = ["hardhat", "localhost"];
 export const DECIMALS = 8;
 export const INITIAL_ANSWER = 200000000000;

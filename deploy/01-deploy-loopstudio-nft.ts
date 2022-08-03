@@ -26,8 +26,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     "https://ipfs.io/ipfs/QmPmY4DXRHL4msahmAmSUyY9HeJJR8udv6fv6rv3TmaPao?filename=loopssrpm.json", // ssr pm
     "https://ipfs.io/ipfs/Qmakb3sFwsXk6D15dbLYTpQHbuoT1vdGtYdYc7hKWmsWTT?filename=loopsrpm.json", // sr pm
   ];
-  const repeatedWors = [...Array(10)].map((_) => [...urisToUse]);
-  const uris = repeatedWors.flat();
+  const repeatedWords = [...Array(10)].map((_) => [...urisToUse]);
+  const uris = repeatedWords.flat();
 
   const constructorArgs = [
     networkConfig[chainId].subscriptionId,
@@ -44,7 +44,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   console.log(`keyHash ${networkConfig[chainId].keyHash} \n`);
   console.log(`uris.length ${uris.length} \n`);
 
-  const basicNFT = await deploy(contractToDeploy, {
+  const loopNFT = await deploy(contractToDeploy, {
     from: deployer,
     args: constructorArgs,
     log: true,
@@ -55,7 +55,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     !developmentChains.includes(network.name) &&
     process.env.ETHERSCAN_API_KEY
   ) {
-    await verify(basicNFT.address, constructorArgs);
+    await verify(loopNFT.address, constructorArgs);
   }
 
   console.log(`${contractToDeploy} deployed successfully`);

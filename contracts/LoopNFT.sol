@@ -8,10 +8,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
-    bool vrfInitialized = false;
-
     // VRF variables
-    VRFCoordinatorV2Interface COORDINATOR;
+    VRFCoordinatorV2Interface coordinator;
 
     uint64 private immutable subscriptionId;
     address private immutable vrfCoordinator;
@@ -38,23 +36,21 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
             "Randoms and URI arrays have different length"
         );
 
-        COORDINATOR = VRFCoordinatorV2Interface(_vrfCoordinator);
+        coordinator = VRFCoordinatorV2Interface(_vrfCoordinator);
         subscriptionId = _subscriptionId;
         keyHash = _keyHask;
         vrfCoordinator = _vrfCoordinator;
-
         characterUris = _characterUris;
     }
 
     function initializeRandoms() external onlyOwner {
-        require(!vrfInitialized, "Randoms already initialized");
+        require(randomWords.length > 0, "Randoms already initialized");
 
         requestRandomWords();
-        vrfInitialized = true;
     }
 
     function requestRandomWords() private {
-        requestId = COORDINATOR.requestRandomWords(
+        requestId = coordinator.requestRandomWords(
             keyHash,
             subscriptionId,
             requestConfirmations,
@@ -75,14 +71,14 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         require(randomWords.length > 0, "No available random words");
 
         _safeMint(msg.sender, tokenCounter);
-        _setTokenURI(tokenCounter, getRandomURI());
+        _setTokenURI(tokenCounter, calculateRandomURI());
 
         tokenCounter += 1;
 
         return tokenCounter;
     }
 
-    function getRandomURI() private view returns (string memory) {
+    function calculateRandomURI() private returns (string memory) {
         uint256 index = randomWords[0] % characterUris.length;
         string memory uriToMint = characterUris[index];
 
