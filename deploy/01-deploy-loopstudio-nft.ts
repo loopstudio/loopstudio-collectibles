@@ -9,7 +9,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployments, getNamedAccounts } = hre;
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  const chainId = network.config.chainId || 0;
+  const chainId = network.config.chainId!;
 
   if (!networkConfig[chainId]) {
     return console.log("Network confguration not found");

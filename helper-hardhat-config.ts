@@ -12,7 +12,7 @@ export const networkConfig: { [key: number]: Record<string, unknown> } = {
     ethUsdPriceFeedAddress: "0xF9680D99D6C9589e2a93a78A04A279e509205945",
     // TODO: Add Polygon data for LoopNFT
   },
-} as const;
+};
 
 export const developmentChains = ["hardhat", "localhost", "rinkeby"];
 export const DECIMALS = 8;
