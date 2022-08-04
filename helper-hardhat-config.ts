@@ -21,6 +21,9 @@ export const networkConfig: { [key: number]: Record<string, any> } = {
 
     // TODO: Add Polygon data for LoopNFT
   },
+  80001: {
+    name: "muambai",
+  },
 };
 
 export const developmentChains = ["hardhat", "localhost"];
