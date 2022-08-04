@@ -44,7 +44,7 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     }
 
     function initializeRandoms() external onlyOwner {
-        require(randomWords.length > 0, "Randoms already initialized");
+        require(randomWords.length == 0, "Randoms already initialized");
 
         requestRandomWords();
     }
