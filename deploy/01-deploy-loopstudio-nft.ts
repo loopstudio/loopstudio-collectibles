@@ -1,22 +1,25 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { network } from "hardhat";
+import { network, ethers } from "hardhat";
 
 import { developmentChains, networkConfig } from "../helper-hardhat-config";
 import { verify } from "../utils/verify";
 
+const FUND_AMOUNT = "1000000000000000000";
+
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployments, getNamedAccounts } = hre;
-  const { deploy } = deployments;
+  const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
-  const chainId = network.config.chainId!;
+  const chainId = network.config.chainId || 31337;
+  const currentNetworkConfig = networkConfig[chainId];
 
-  if (!networkConfig[chainId]) {
-    return console.log("Network confguration not found");
+  if (!currentNetworkConfig) {
+    return log("Network confguration not found");
   }
 
   const contractToDeploy = "LoopNFT";
-  console.log(`Starting to deploy ${contractToDeploy}`);
+  log(`Starting to deploy ${contractToDeploy}`);
 
   // TODO: Change this workaround once we have all URIs defined
   const urisToUse = [
@@ -29,20 +32,37 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const repeatedWords = [...Array(10)].map((_) => [...urisToUse]);
   const uris = repeatedWords.flat();
 
+  let vrfCoordinatorV2Address, subscriptionId;
+
+  if (developmentChains.includes(network.name)) {
+    const vrFCoordinatorV2Mock = await ethers.getContract(
+      "VRFCoordinatorV2Mock"
+    );
+    vrfCoordinatorV2Address = vrFCoordinatorV2Mock.address;
+    const tx = await vrFCoordinatorV2Mock.createSubscription();
+    const txReceipt = await tx.wait(1);
+
+    subscriptionId = txReceipt.events[0].args.subId;
+
+    await vrFCoordinatorV2Mock.fundSubscription(subscriptionId, FUND_AMOUNT);
+  } else {
+    vrfCoordinatorV2Address = networkConfig[chainId].vrfCoordinatorAddress;
+    subscriptionId = networkConfig[chainId].subscriptionId;
+  }
+
   const constructorArgs = [
-    networkConfig[chainId].subscriptionId,
-    networkConfig[chainId].vrfCoordinatorAddress,
+    subscriptionId,
+    vrfCoordinatorV2Address,
     networkConfig[chainId].keyHash,
     uris,
   ];
 
-  console.log("Deploy parameters");
-  console.log(`subscriptionId ${networkConfig[chainId].subscriptionId} \n`);
-  console.log(
-    `vrfCoordinatorAddress ${networkConfig[chainId].vrfCoordinatorAddress} \n`
-  );
-  console.log(`keyHash ${networkConfig[chainId].keyHash} \n`);
-  console.log(`uris.length ${uris.length} \n`);
+  log("Deploy parameters");
+  log(`subscriptionId ${constructorArgs[0]} \n`);
+  log(`vrfCoordinatorAddress ${constructorArgs[1]} \n`);
+  log(`keyHash ${constructorArgs[2]} \n`);
+  log(`uris.length ${constructorArgs[3].length} \n`);
+  log(`deployer ${deployer}`);
 
   const loopNFT = await deploy(contractToDeploy, {
     from: deployer,
@@ -58,7 +78,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     await verify(loopNFT.address, constructorArgs);
   }
 
-  console.log(`${contractToDeploy} deployed successfully`);
+  log(`${contractToDeploy} deployed successfully`);
 };
 export default func;
 func.tags = ["all", "LoopNFT"];
