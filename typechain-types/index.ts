@@ -22,8 +22,6 @@ export type { VRFCoordinatorV2Interface } from "./@chainlink/contracts/src/v0.8/
 export { VRFCoordinatorV2Interface__factory } from "./factories/@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface__factory";
 export type { VRFCoordinatorV2Mock } from "./@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock";
 export { VRFCoordinatorV2Mock__factory } from "./factories/@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock__factory";
-export type { VRFConsumerBase } from "./@chainlink/contracts/src/v0.8/VRFConsumerBase";
-export { VRFConsumerBase__factory } from "./factories/@chainlink/contracts/src/v0.8/VRFConsumerBase__factory";
 export type { VRFConsumerBaseV2 } from "./@chainlink/contracts/src/v0.8/VRFConsumerBaseV2";
 export { VRFConsumerBaseV2__factory } from "./factories/@chainlink/contracts/src/v0.8/VRFConsumerBaseV2__factory";
 export type { Ownable } from "./@openzeppelin/contracts/access/Ownable";

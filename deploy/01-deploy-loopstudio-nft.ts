@@ -40,11 +40,15 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     );
     vrfCoordinatorV2Address = vrFCoordinatorV2Mock.address;
     const tx = await vrFCoordinatorV2Mock.createSubscription();
-    const txReceipt = await tx.wait(1);
+    const txReceipt = await tx.wait(currentNetworkConfig.confirmations);
 
     subscriptionId = txReceipt.events[0].args.subId;
 
-    await vrFCoordinatorV2Mock.fundSubscription(subscriptionId, FUND_AMOUNT);
+    const txFund = await vrFCoordinatorV2Mock.fundSubscription(
+      subscriptionId,
+      FUND_AMOUNT
+    );
+    await txFund.wait(currentNetworkConfig.confirmations);
   } else {
     vrfCoordinatorV2Address = networkConfig[chainId].vrfCoordinatorAddress;
     subscriptionId = networkConfig[chainId].subscriptionId;
@@ -68,7 +72,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     from: deployer,
     args: constructorArgs,
     log: true,
-    waitConfirmations: 3,
+    waitConfirmations: currentNetworkConfig.confirmations || 6,
   });
 
   if (
