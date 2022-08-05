@@ -7,6 +7,7 @@ import "@nomiclabs/hardhat-ethers";
 import "@typechain/hardhat";
 import "solidity-coverage";
 import "hardhat-deploy";
+import "hardhat-gas-reporter";
 
 import "./tasks/mintLoopNFT";
 import "./tasks/getRandomValues";
@@ -40,13 +41,13 @@ const config: HardhatUserConfig = {
       chainId: 80001,
     },
   },
-  // gasReporter: {
-  //   enabled: process.env.REPORT_GAS !== undefined,
-  //   currency: "USD",
-  //   // outputFile: "gas-report.txt",
-  //   coinmarketcap: process.env.COINMARKETCAP_API_KEY!,
-  //   token: "ETH",
-  // },
+  gasReporter: {
+    enabled: process.env.REPORT_GAS !== undefined,
+    currency: "USD",
+    // outputFile: "gas-report.txt",
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY!,
+    token: "ETH",
+  },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
