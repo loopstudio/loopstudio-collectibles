@@ -4,6 +4,8 @@ import { network, ethers } from "hardhat";
 
 import { developmentChains, networkConfig } from "../helper-hardhat-config";
 import { verify } from "../utils/verify";
+import { storeTokenUriMetadata } from "../utils/uploadToPinata";
+import { collectionData } from "../utils/metadata/data";
 
 const FUND_AMOUNT = "1000000000000000000";
 
@@ -18,19 +20,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     return log("Network confguration not found");
   }
 
+  let tokenUris;
+  if (process.env.UPLOAD_TO_PINATA == "true") {
+    tokenUris = await handleTokenUris();
+  }
+
   const contractToDeploy = "LoopNFT";
   log(`Starting to deploy ${contractToDeploy}`);
-
-  // TODO: Change this workaround once we have all URIs defined
-  const urisToUse = [
-    "https://ipfs.io/ipfs/QmVrisQ5DV9kD7HH6Ky4PrxJYg7EiaWqxnLUoQ3np6KFUu?filename=loopjrdev.json", // jr dev
-    "https://ipfs.io/ipfs/QmZ8NoCGjuDU5SA4dzGfyFRpnfWQAzGjCKwkuCSBCudgC2?filename=loopssrdev.json", // srr dev
-    "https://ipfs.io/ipfs/Qme61k7jPUsuZoEcihtBB6fMN2FaaEkwr8zpcukfkdn1d7?filename=loopsrdev.json", // sr dev
-    "https://ipfs.io/ipfs/QmPmY4DXRHL4msahmAmSUyY9HeJJR8udv6fv6rv3TmaPao?filename=loopssrpm.json", // ssr pm
-    "https://ipfs.io/ipfs/Qmakb3sFwsXk6D15dbLYTpQHbuoT1vdGtYdYc7hKWmsWTT?filename=loopsrpm.json", // sr pm
-  ];
-  const repeatedWords = [...Array(10)].map((_) => [...urisToUse]);
-  const uris = repeatedWords.flat();
 
   let vrfCoordinatorV2Address, subscriptionId;
 
@@ -58,7 +54,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     subscriptionId,
     vrfCoordinatorV2Address,
     networkConfig[chainId].keyHash,
-    uris,
+    tokenUris,
   ];
 
   log("Deploy parameters");
@@ -84,5 +80,18 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   log(`${contractToDeploy} deployed successfully`);
 };
+
+async function handleTokenUris() {
+  let tokenUris = [];
+  const data = collectionData;
+  for (const looper of data) {
+    console.log(`Uploading ${looper.name} `);
+    const metadatauploadResponse = await storeTokenUriMetadata(looper);
+    tokenUris.push(`ipfs://${metadatauploadResponse!.IpfsHash}`);
+  }
+  console.log("Token uris uploaded: ", tokenUris);
+  return tokenUris;
+}
+
 export default func;
 func.tags = ["all", "LoopNFT"];
