@@ -82,7 +82,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 };
 
 async function handleTokenUris() {
-  let tokenUris = [];
+  const tokenUris = [];
   const data = collectionData;
   for (const looper of data) {
     console.log(`Uploading ${looper.name} `);

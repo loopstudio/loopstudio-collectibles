@@ -42,5 +42,3 @@ export type { IERC165 } from "./@openzeppelin/contracts/utils/introspection/IERC
 export { IERC165__factory } from "./factories/@openzeppelin/contracts/utils/introspection/IERC165__factory";
 export type { LoopNFT } from "./contracts/LoopNFT";
 export { LoopNFT__factory } from "./factories/contracts/LoopNFT__factory";
-export type { LoopStudioNFT } from "./contracts/LoopStudioNFT";
-export { LoopStudioNFT__factory } from "./factories/contracts/LoopStudioNFT__factory";
