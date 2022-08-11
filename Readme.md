@@ -119,9 +119,10 @@ Since the contracts are verified by default using `etherscan` you can just inter
 
 Otherwise, we provide hardhat `tasks` to interact with `LoopNFT`:
 
-7. After deployed, random numbers must be fulfilled: `yarn hardhat initializeRandoms --ca {contract_address}`
-8. Then, new items can be minted: `yarn hardhat mintLoopNFT --ca {contract_address}`
-9. Check `tokenCounter` by running; `yarn hardhat getTokenCounter --ca {contract_address}`
+7. After deployed, random numbers must be fulfilled: `yarn hardhat initializeRandoms --ca {contract_address} --network {rinkeby|localhost}`
+8. Check random values after 6 confirmations: `yarn hardhat getRandomValues --ca {contract_address} --id 0 --network {rinkeby|localhost}`
+9. Then, new items can be minted: `yarn hardhat mintLoopNFT --ca {contract_address} --network {rinkeby|localhost}`
+10. Check `tokenCounter` by running; `yarn hardhat getTokenCounter --ca {contract_address} --network {rinkeby|localhost}`
 
 ## OpenSea
 

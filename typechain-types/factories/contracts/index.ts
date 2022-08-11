@@ -2,3 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { LoopNFT__factory } from "./LoopNFT__factory";
+export { LoopStudioNFT__factory } from "./LoopStudioNFT__factory";

@@ -11,7 +11,6 @@ task("getRandomValues", "Request new randoms for LoopNFT")
       contractToDeploy
     );
     const loopNFT = loopNFTContract.attach(taskArgs.ca);
-
     const randomsWords = await loopNFT.randomWords(+taskArgs.id);
     if (randomsWords) {
       console.log("randomsWords > ", randomsWords);
