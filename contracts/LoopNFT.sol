@@ -16,7 +16,7 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     bytes32 private immutable keyHash;
     uint32 private constant callbackGasLimit = 20000 * (numWords + 10);
     uint16 private constant requestConfirmations = 3;
-    uint32 private constant numWords = 3;
+    uint32 private constant numWords = 70;
 
     uint256[] public randomWords;
     uint256 public requestId;
@@ -29,7 +29,7 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         uint64 _subscriptionId,
         address _vrfCoordinator,
         bytes32 _keyHask,
-        string[3] memory _characterUris
+        string[70] memory _characterUris
     ) VRFConsumerBaseV2(_vrfCoordinator) ERC721("LoopNFT", "LOOPNFT") {
         require(
             _characterUris.length == numWords,
