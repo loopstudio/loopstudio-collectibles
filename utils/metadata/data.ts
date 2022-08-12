@@ -324,7 +324,7 @@ export const collectionData = [
   {
     name: "LoopJRPM",
     description: "Loop JR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -347,7 +347,7 @@ export const collectionData = [
   {
     name: "LoopSSRPM",
     description: "Loop SSR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -370,7 +370,7 @@ export const collectionData = [
   {
     name: "LoopSRPM",
     description: "Loop SR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -393,7 +393,7 @@ export const collectionData = [
   {
     name: "LoopJRPM",
     description: "Loop JR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -416,7 +416,7 @@ export const collectionData = [
   {
     name: "LoopSSRPM",
     description: "Loop SSR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -439,7 +439,7 @@ export const collectionData = [
   {
     name: "LoopSRPM",
     description: "Loop SR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -462,7 +462,7 @@ export const collectionData = [
   {
     name: "LoopJRPM",
     description: "Loop JR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -485,7 +485,7 @@ export const collectionData = [
   {
     name: "LoopSSRPM",
     description: "Loop SSR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -508,7 +508,7 @@ export const collectionData = [
   {
     name: "LoopSRPM",
     description: "Loop SR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -531,7 +531,7 @@ export const collectionData = [
   {
     name: "LoopJRPM",
     description: "Loop JR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -554,7 +554,7 @@ export const collectionData = [
   {
     name: "LoopJRPM",
     description: "Loop JR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -577,7 +577,7 @@ export const collectionData = [
   {
     name: "LoopSSRPM",
     description: "Loop SSR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -600,7 +600,7 @@ export const collectionData = [
   {
     name: "LoopSRPM",
     description: "Loop SR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
@@ -623,7 +623,7 @@ export const collectionData = [
   {
     name: "LoopJRPM",
     description: "Loop JR PM",
-    image: "ipfs://Qme8bGUK3UbZYZwMBjS91HdXbe5na9H3N3Tiu1JJ61iEF5",
+    image: "ipfs://QmWho6yHpt15n6ChwXsoSHTyXHc7NNtyXK7FqrFyYo982d",
     attributes: [
       {
         trait_type: "Seniority",
