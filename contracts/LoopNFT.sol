@@ -30,7 +30,10 @@ contract LoopNFT is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         address _vrfCoordinator,
         bytes32 _keyHask,
         string[70] memory _characterUris
-    ) VRFConsumerBaseV2(_vrfCoordinator) ERC721("LoopNFT", "LOOPNFT") {
+    )
+        VRFConsumerBaseV2(_vrfCoordinator)
+        ERC721("LoopCollectibles", "LoopCollectibles")
+    {
         require(
             _characterUris.length == numWords,
             "Randoms and URI arrays have different length"
