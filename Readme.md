@@ -22,6 +22,12 @@ Each role, in conjuntion with different traits, define an unique NFT that repres
 - Hobby
 - Does it drinks coffe or Mate?
 
+
+![QA](https://lh3.googleusercontent.com/SB7QL3Y5Bfzs77HYy1NkDV54_vaLbo5hMaQ1cRbouw_zzzUzPoXhiWdnPWtKvlaRBGNMeSmoTon4qDUoNwYLpKWhwzo7ZjqeCnci=s0)
+
+[Watch them at OpenSea](https://testnets.opensea.io/collection/loopcollectibles)
+
+
 # Technical Details
 
 ## Stack
