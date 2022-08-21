@@ -4,7 +4,9 @@ import { network, ethers } from "hardhat";
 
 import { developmentChains, networkConfig } from "../helper-hardhat-config";
 import { verify } from "../utils/verify";
+import { UPLOADED_URIS } from "../utils/metadata/uploadedUris";
 import { storeTokenUriMetadata } from "../utils/uploadToPinata";
+
 import { collectionData } from "../utils/metadata/data";
 
 const FUND_AMOUNT = "1000000000000000000";
@@ -20,14 +22,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     return log("Network confguration not found");
   }
 
-  let tokenUris;
+  let tokenUris = UPLOADED_URIS;
   if (process.env.UPLOAD_TO_PINATA == "true") {
     tokenUris = await handleTokenUris();
-  } else {
-    tokenUris = [...Array(70).keys()];
   }
 
-  console.log("OK", tokenUris);
   const contractToDeploy = "LoopNFT";
   log(`Starting to deploy ${contractToDeploy}`);
 

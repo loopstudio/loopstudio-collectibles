@@ -53,8 +53,7 @@ describe("LoopNFT", function () {
   });
 
   it("Should initialize random numbers correctly", async () => {
-    const fullfilTx = await performInitializeProcess();
-    const requestId = await loopNFT.requestId();
+    await performInitializeProcess();
 
     // First and last words should be greater than zero
     const firstRandomNumber = await loopNFT.randomWords(0);
@@ -85,6 +84,33 @@ describe("LoopNFT", function () {
     expect(tokenCounter).to.eq(ethers.constants.One);
   });
 
+  it("Should mint 70 items and revert next transaction", async () => {
+    await performInitializeProcess();
+    let tokenCounter = await loopNFT.tokenCounter();
+    expect(tokenCounter).to.eq(ethers.constants.Zero);
+
+    // exhaust the amount of available nfts
+    for (let i = 0; i < NUMBER_OF_CHARACTERS; i++) {
+      await loopNFT.mint();
+    }
+    tokenCounter = await loopNFT.tokenCounter();
+    expect(tokenCounter).to.eq(NUMBER_OF_CHARACTERS);
+
+    // claim should be reverted since there shouldnt be any uri available
+    await expect(loopNFT.mint()).to.be.revertedWith(
+      "No available URIs to be minted"
+    );
+
+    // randoms should be empty
+    await expect(loopNFT.randomWords(0)).to.be.reverted;
+
+    // after the collection is empty, it could be reinitialized
+    await performInitializeProcess();
+    const firstRandomNumber = await loopNFT.randomWords(0);
+    expect(firstRandomNumber).gt(ethers.constants.Zero); // FIXME this should fail! now we cant mint ..
+    await loopNFT.mint();
+  });
+
   async function performInitializeProcess() {
     // Request random words to chainlink
     await loopNFT.initializeRandoms();
@@ -102,3 +128,25 @@ describe("LoopNFT", function () {
       .withArgs(requestId, requestId, anyValue, true);
   }
 });
+
+// initializeRandoms by not owner (revert con matcheo de mensaje?) [x]
+// initializeRandoms twice [x]
+// mint & events
+// mint and check token counter [x]
+// mint after 70 requests should fail [x]
+// constructor sizes? dificil ..habria que ver como pasar parametros al fixture
+
+// leer sobre chai
+// leer sobre smart contracts testing
+// leer sobre hardhat testing
+
+// mostrar mas en detalle los contratos
+// mover a un utils los files ipfs
+
+// que es waffle y como usa chai y mocka https://ethereum-waffle.readthedocs.io/en/latest/matchers.html
+// https://getwaffle.io
+// https://hardhat.org/hardhat-chai-matchers/docs/overview
+
+// algun test hacerlo en el momento
+
+// BUG-> cuando se gastan los NFTs se puede llamar a initialize de nuevo
