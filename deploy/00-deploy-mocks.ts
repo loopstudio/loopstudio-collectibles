@@ -25,5 +25,5 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   }
 };
 
-export default func;
 func.tags = ["all", "mocks", "main"];
+export default func;

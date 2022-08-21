@@ -23,8 +23,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   let tokenUris;
   if (process.env.UPLOAD_TO_PINATA == "true") {
     tokenUris = await handleTokenUris();
+  } else {
+    tokenUris = [...Array(70).keys()];
   }
 
+  console.log("OK", tokenUris);
   const contractToDeploy = "LoopNFT";
   log(`Starting to deploy ${contractToDeploy}`);
 
@@ -93,5 +96,5 @@ async function handleTokenUris() {
   return tokenUris;
 }
 
-export default func;
 func.tags = ["all", "LoopNFT"];
+export default func;

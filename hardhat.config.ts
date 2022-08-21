@@ -24,12 +24,14 @@ const config: HardhatUserConfig = {
     compilers: [{ version: "0.8.15" }, { version: "0.6.6" }],
   },
   networks: {
+    /*
     hardhat: {
       mining: {
         auto: false,
         interval: 5000,
       },
     },
+    */
     rinkeby: {
       url: process.env.RINKEBY_URL || "",
       accounts: [process.env.PRIVATE_KEY!],
@@ -58,6 +60,9 @@ const config: HardhatUserConfig = {
     user: {
       default: 1,
     },
+  },
+  mocha: {
+    timeout: 200000, // 200 seconds max for running tests
   },
 };
 
