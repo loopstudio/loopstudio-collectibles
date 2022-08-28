@@ -75,7 +75,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   if (
     !developmentChains.includes(network.name) &&
-    process.env.ETHERSCAN_API_KEY
+    process.env.ETHERSCAN_API_KEY &&
+    process.env.VERIFY_CONTRACT === "true"
   ) {
     await verify(loopNFT.address, constructorArgs);
   }
