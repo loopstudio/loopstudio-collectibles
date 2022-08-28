@@ -54,7 +54,7 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
           const { deployer } = await getNamedAccounts();
           const { loopNFT } = await loadFixture(deployNFTFixture);
 
-          await expect(loopNFT.owner()).to.be.eq(deployer);
+          await expect(await loopNFT.owner()).to.be.eq(deployer);
         });
       });
 
