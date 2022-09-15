@@ -139,7 +139,7 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
           expect(uri).to.be.not.null;
 
           const nftOwner = await loopNFT.ownerOf(tokenId);
-          expect(nftOwner).to.be.eq(deployer);
+          expect(nftOwner).to.be.eq(deployer);  
         });
 
         it("Should mint 70 items and revert next transaction", async () => {

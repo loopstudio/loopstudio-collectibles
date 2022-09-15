@@ -95,7 +95,6 @@ We follow the following approach to bootstrap 70 unique items and ensure that th
 
 ```
 RINKEBY_URL=[INFURA OR ALCHEMY RPC URL]
-LOOP_NFT_RINKEBY_ADDRESS = [DEPLOYED_CONTRACT_ADDRESS] // Optional: for staging tests
 MUAMBAI_URL=[INFURA OR ALCHEMY RPC URL] // Optional: for polygon deployment
 PRIVATE_KEY=[DEPLOYER_PRIVATE_KEY]
 PRIVATE_KEY_2=[ANOTHER_ACCOUNT_PRIVATE_KEY] // Optional

@@ -17,8 +17,14 @@ developmentChains.includes(network.name)
       before(async function () {
         const loopNFTContract = await ethers.getContractFactory("LoopNFT");
         loopNFT = loopNFTContract.attach(
-          process.env.LOOP_NFT_RINKEBY_ADDRESS!
+          currentNetworkConfig.loopNFTAddress
         ) as LoopNFT;
+      });
+
+      it("Should revert if randoms were already initialized", async () => {
+        await expect(loopNFT.initializeRandoms()).to.be.revertedWith(
+          "Randoms already initialized"
+        );
       });
 
       it("Should mint an NFT", async () => {
