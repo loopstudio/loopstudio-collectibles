@@ -26,6 +26,12 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
       let chainId = network.config.chainId || HARDHAT_NETWORK_ID;
       let currentNetworkConfig = networkConfig[chainId];
 
+      beforeEach(async function () {
+        ({ loopNFT, vrfCoordinatorV2Mock } = await loadFixture(
+          deployNFTFixture
+        ));
+      });
+
       async function deployNFTFixture() {
         await deployments.fixture(["mocks", "LoopNFT"]);
         vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock");
@@ -52,7 +58,6 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
       describe("constructor", function () {
         it("Should set the right owner", async () => {
           const { deployer } = await getNamedAccounts();
-          const { loopNFT } = await loadFixture(deployNFTFixture);
 
           await expect(await loopNFT.owner()).to.be.eq(deployer);
         });
@@ -60,10 +65,6 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
 
       describe("initializeRandoms", function () {
         it("Should request random numbers correctly", async () => {
-          const { loopNFT, vrfCoordinatorV2Mock } = await loadFixture(
-            deployNFTFixture
-          );
-
           await expect(loopNFT.initializeRandoms())
             .to.emit(vrfCoordinatorV2Mock, "RandomWordsRequested")
             .withArgs(
@@ -78,8 +79,7 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
             );
         });
 
-        it("Should call initialize randoms and revert if not owner", async () => {
-          const { loopNFT } = await loadFixture(deployNFTFixture);
+        it("Should revert if not owner", async () => {
           let user = await ethers.getSigner((await getUnnamedAccounts())[0]);
           await expect(
             loopNFT.connect(user).initializeRandoms()
@@ -87,7 +87,6 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
         });
 
         it("Should initialize random numbers correctly", async () => {
-          const { loopNFT } = await loadFixture(deployNFTFixture);
           await loopNFT.initializeRandoms();
 
           await mockChainlinkNodeCall();
@@ -107,7 +106,6 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
         });
 
         it("Should revert if randoms were already initialized", async () => {
-          const { loopNFT } = await loadFixture(deployNFTFixture);
           await loopNFT.initializeRandoms();
           await mockChainlinkNodeCall();
           await expect(loopNFT.initializeRandoms()).to.be.revertedWith(
@@ -119,7 +117,6 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
       describe("mint", function () {
         it("Should mint an nft", async () => {
           const { deployer } = await getNamedAccounts();
-          const { loopNFT } = await loadFixture(deployNFTFixture);
 
           await loopNFT.initializeRandoms();
           await mockChainlinkNodeCall();
@@ -137,13 +134,13 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
 
           const uri = await loopNFT.tokenURI(tokenId);
           expect(uri).to.be.not.null;
+          expect(typeof uri).to.be.eq("string");
 
           const nftOwner = await loopNFT.ownerOf(tokenId);
-          expect(nftOwner).to.be.eq(deployer);  
+          expect(nftOwner).to.be.eq(deployer);
         });
 
         it("Should mint 70 items and revert next transaction", async () => {
-          const { loopNFT } = await loadFixture(deployNFTFixture);
           await loopNFT.initializeRandoms();
           await mockChainlinkNodeCall();
 
