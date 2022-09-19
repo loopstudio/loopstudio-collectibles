@@ -13,6 +13,6 @@ task("getTokenCounter", "Request tokenCounter from LoopNFT")
 
     const tokenCounter = await loopNFT.tokenCounter();
     if (tokenCounter) {
-      console.log("tokenCounter > ", tokenCounter);
+      console.log("tokenCounter: ", tokenCounter);
     }
   });
