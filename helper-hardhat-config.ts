@@ -3,7 +3,8 @@ export const networkConfig: { [key: number]: Record<string, any> } = {
     name: "localhost",
     keyHash:
       "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc", // 30 gwei
-    confirmations: 6,
+    confirmations: 1,
+    subscriptionId: 1,
   },
   4: {
     name: "rinkeby",
