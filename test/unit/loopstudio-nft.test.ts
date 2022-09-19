@@ -117,7 +117,6 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
       describe("mint", function () {
         it("Should mint an nft", async () => {});
 
-        it("Should mint 70 items and revert next transaction", async () => {
-          
+        it("Should mint 70 items and revert next transaction", async () => {});
       });
     });
