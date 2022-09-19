@@ -2,4 +2,3 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { LoopNFT } from "./LoopNFT";
-export type { LoopStudioNFT } from "./LoopStudioNFT";
