@@ -115,8 +115,49 @@ const VRF_CALLBACK_GAS_LIMIT = 20000 * (NUMBER_OF_CHARACTERS + 10);
       });
 
       describe("mint", function () {
-        it("Should mint an nft", async () => {});
+        it("Should mint an nft", async () => {
+          const { deployer } = await getNamedAccounts();
+          await loopNFT.initializeRandoms();
+          await mockChainlinkNodeCall();
 
-        it("Should mint 70 items and revert next transaction", async () => {});
+          const tokenId = await loopNFT.tokenCounter();
+          expect(tokenId).to.eq(ethers.constants.Zero);
+
+          const mintTx = await loopNFT.mint();
+          expect(mintTx)
+            .to.emit(loopNFT, "Transfer")
+            .withArgs(ethers.constants.AddressZero, deployer, tokenId);
+
+          const tokenCounter = await loopNFT.tokenCounter();
+          expect(tokenCounter).to.eq(ethers.constants.One);
+
+          const uri = await loopNFT.tokenURI(tokenId);
+          expect(uri).to.be.not.null;
+          expect(typeof uri).to.be.eq("string");
+          console.log("uri", uri);
+        });
+
+        it("Should mint 70 items and revert next transaction", async () => {
+          await loopNFT.initializeRandoms();
+          await mockChainlinkNodeCall();
+
+          let tokenCounter = await loopNFT.tokenCounter();
+          expect(tokenCounter).to.eq(ethers.constants.Zero);
+
+          // exhaust the amount of available nfts
+          for (let i = 0; i < NUMBER_OF_CHARACTERS; i++) {
+            await loopNFT.mint();
+          }
+          tokenCounter = await loopNFT.tokenCounter();
+          expect(tokenCounter).to.eq(NUMBER_OF_CHARACTERS);
+
+          // claim should be reverted since there shouldnt be any uri available
+          await expect(loopNFT.mint()).to.be.revertedWith(
+            "No available URIs to be minted"
+          );
+
+          // randoms should be empty
+          await expect(loopNFT.randomWords(0)).to.be.reverted;
+        });
       });
     });
