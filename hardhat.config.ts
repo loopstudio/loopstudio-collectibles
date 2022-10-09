@@ -32,10 +32,10 @@ const config: HardhatUserConfig = {
       },
     },
     */
-    rinkeby: {
-      url: process.env.RINKEBY_URL || "",
+    goerli: {
+      url: process.env.GOERLI_URL || "",
       accounts: [process.env.PRIVATE_KEY!],
-      chainId: 4,
+      chainId: 5,
     },
     muambai: {
       url: process.env.MUAMBAI_URL || "",
