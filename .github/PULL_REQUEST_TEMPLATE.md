@@ -1,23 +1,24 @@
 # Description
 
-```
 Please include a summary of the changes and the related issue.
 
 Please also include relevant motivation and context.
-```
 
 # Changelog
 
-```
+Please include a list of the modified files, components or modules that are affected by this MR.
 
-Please include a list of the modified files, components or modules that are affected by this PR.
+Example:
 
-
+- some-component.ts was changed in order to ..
 -
 -
--
 
-```
+# Resolves
+
+Please include the JIRA task that this PR fixes or completes. Example:
+
+- Resolves [JIRA title](https://jira.com)
 
 # Type
 
@@ -25,6 +26,13 @@ Please include a list of the modified files, components or modules that are affe
 - [x] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] This change requires a documentation update
+
+# How was it tested?
+
+- [ ] Unit test passed and coverage threshold fulfilled
+- [ ] Tested manually
+
+Add any other relevant information if needed
 
 # Checklist:
 
