@@ -6,15 +6,6 @@ export const networkConfig: { [key: number]: Record<string, any> } = {
     confirmations: 1,
     subscriptionId: 1,
   },
-  4: {
-    name: "rinkeby",
-    subscriptionId: 9501,
-    vrfCoordinatorAddress: "0x6168499c0cFfCaCD319c818142124B7A15E857ab",
-    keyHash:
-      "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc",
-    confirmations: 1,
-    loopNFTAddress: "0xd414183c3022A3B0A2584F5ded372697B0b11483",
-  },
   137: {
     name: "polygon",
     confirmations: 6,
