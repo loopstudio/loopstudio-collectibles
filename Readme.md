@@ -100,7 +100,7 @@ We follow the following approach to bootstrap 70 unique items and ensure that th
 2. Fullfil the following properties:
 
 ```
-RINKEBY_URL=[INFURA OR ALCHEMY RPC URL]
+GOERLI_URL=[INFURA OR ALCHEMY RPC URL]
 MUAMBAI_URL=[INFURA OR ALCHEMY RPC URL] // Optional: for polygon deployment
 PRIVATE_KEY=[DEPLOYER_PRIVATE_KEY]
 PRIVATE_KEY_2=[ANOTHER_ACCOUNT_PRIVATE_KEY] // Optional
@@ -116,7 +116,7 @@ UPLOAD_TO_PINATA=true
 
 3. `npm install` or `yarn install`
 4. Deploy to localhost `yarn hardhat deploy`
-5. Deploy to ethereum testnet `yarn hardhat deploy --network rinkeby`
+5. Deploy to ethereum testnet `yarn hardhat deploy --network goerli`
 6. Deploy to polygon testnet `yarn hardhat deploy --network muambai`
 
 ## Interact
@@ -125,11 +125,29 @@ Since the contracts are verified by default using `etherscan` you can just inter
 
 Otherwise, we provide hardhat `tasks` to interact with `LoopNFT`:
 
-7. After deployed, random numbers must be fulfilled: `yarn hardhat initializeRandoms --ca {contract_address} --network {rinkeby|localhost}`
-8. Check random values after 6 confirmations: `yarn hardhat getRandomValues --ca {contract_address} --id 0 --network {rinkeby|localhost}`
-9. Then, new items can be minted: `yarn hardhat mintLoopNFT --ca {contract_address} --network {rinkeby|localhost}`
-10. Check `tokenCounter` by running; `yarn hardhat getTokenCounter --ca {contract_address} --network {rinkeby|localhost}`
+7. After deployed, random numbers must be fulfilled: `yarn hardhat initializeRandoms --ca {contract_address} --network {goerli|localhost}`
+8. Check random values after 6 confirmations: `yarn hardhat getRandomValues --ca {contract_address} --id 0 --network {goerli|localhost}`
+9. Then, new items can be minted: `yarn hardhat mintLoopNFT --ca {contract_address} --network {goerli|localhost}`
+10. Check `tokenCounter` by running; `yarn hardhat getTokenCounter --ca {contract_address} --network {goerli|localhost}`
 
+<<<<<<< Updated upstream
+=======
+## Test
+
+Tests are separated between `unit` and `staging` tests.
+
+`unit` tests are for testing LoopNFT public API meanwhile `staging` tests are for running on testnet with:
+
+- an already deployed LoopNFT contract.
+- an already configured Chainlink VRF subscription
+
+Commands:
+
+- Unit: `npx hardhat test`
+- Staging: `npx hardhat test --network goerli`
+- Coverage: `npx hardhat coverage`
+
+>>>>>>> Stashed changes
 ## OpenSea
 
 After deployed and minted you should find your items on OpeanSea:
